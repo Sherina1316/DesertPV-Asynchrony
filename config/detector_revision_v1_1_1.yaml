@@ -1,0 +1,80 @@
+release:
+  name: china_inland_desert_pv_v24_22_detector_revision_v1_1_1
+  version: 1.1.1
+  base_code_dir: /home/wsy/pv_nature_experiment/code/china_inland_desert_pv_v24_22_novelty_gated_remote_change
+  default_output_root: /home/wsy/pv_nature_experiment/output_v24_22_novelty_gated_remote_change
+study:
+  years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+  reference_year: 2024
+  terminal_year: 2025
+  default_test_units: [35, 107]
+inputs:
+  reference_shp: /home/wsy/pv_nature_experiment/input_tables/pv_desert_fix.shp
+  stage7_registry: 07_probability_calibration/calibrated_inference_registry.csv
+  stage8_registry: 08_temporal_pv_change/temporal_mask_registry.csv
+  require_exact_grid_alignment: true
+  forbid_external_source_discovery: true
+annual_state:
+  evidence_weights:
+    calibrated_probability: 0.38
+    raw_probability: 0.08
+    anchor_similarity: 0.20
+    lsma_fraction: 0.13
+    candidate_score: 0.09
+    multiband_break_support: 0.04
+    legacy_positive_mask: 0.08
+  minimum_available_weight: 0.30
+  minimum_strong_threshold: 0.52
+  maximum_strong_threshold: 0.78
+  minimum_weak_threshold: 0.30
+  background_strong_quantile: 0.995
+  background_weak_quantile: 0.975
+  anchor_low_quantile: 0.12
+  strong_background_margin: 0.035
+  weak_background_margin: 0.015
+  hysteresis_width: 0.16
+  anchor_relative_strong_ratio: 0.76
+  anchor_relative_weak_ratio: 0.54
+  anchor_absolute_floor: 0.16
+  outside_anchor_strong_offset: 0.045
+  whole_component_fill_weak_fraction: 0.72
+  whole_component_fill_strong_fraction: 0.035
+  inside_anchor_min_component_pixels: 1
+  outside_anchor_min_component_pixels: 2
+  maximum_hole_pixels: 24
+  closing_iterations: 1
+temporal:
+  maximum_internal_gap_years: 1
+  minimum_persistent_years_inside_anchor: 2
+  minimum_persistent_years_outside_anchor: 2
+  retain_single_year_if_score_margin: 0.14
+  pre_series_year_count: 2
+  preserve_original_terminal_year_mask: true
+  preserve_original_positive_evidence_all_years: true
+reference_2024:
+  hard_positive_interior: true
+  allow_conservative_inner_ring_trim: true
+  maximum_anchor_trim_fraction: 0.035
+  inner_ring_width_pixels: 1
+  annular_sector_count: 24
+  annular_sector_coverage_threshold: 0.72
+  low_evidence_quantile: 0.18
+  three_year_support_threshold: 0.38
+  outside_ring_width_pixels: 3
+  outside_annular_max_mean_score: 0.58
+outputs:
+  revision_subdir: 08_temporal_pv_change/detector_revision_v111
+  audit_subdir: 00_detector_revision_v111
+  figure_subdir: 18_figures/detector_revision_v111
+  overwrite_canonical_stage8_registry: true
+  backup_canonical_stage8_registry: true
+  write_probability_score_rasters: true
+  write_state_rasters: true
+  generate_atlas: true
+validation:
+  require_all_years: true
+  require_reference_anchor: true
+  require_non_area_only_stage7: true
+  require_2024_anchor_retention_fraction: 0.965
+  require_output_grid_identity: true
+  stop_before_atlas_on_failure: true

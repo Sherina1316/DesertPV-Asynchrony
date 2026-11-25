@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "china-inland-desert-pv-reference-reconstruction"
+version = "24.22.0"
+description = "Adaptive manual-reference boundary refinement, evidence-constrained 2011-2025 change-point reconstruction, ecological response analysis and no-leakage projection to 2050"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
